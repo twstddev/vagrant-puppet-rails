@@ -1,6 +1,7 @@
 # Variables
 $home = "/home/vagrant"
 $execute_as_vagrant = "sudo -u vagrant -H bash -l -c"
+$database = "postgresql"
 
 # Set default binary paths 
 Exec {
@@ -41,6 +42,23 @@ package { "nodejs":
 
 package { [ "sqlite3", "libsqlite3-dev" ]:
 	ensure => "present",
+}
+
+# Install database
+case $database {
+	"postgresql" : {
+		class { "postgresql::server":
+			postgres_password => "postgres"
+		}
+		postgresql::server::db { "app":
+			user => "root",
+			password => postgresql_password( "root", "root" ),
+			require => Class[ "postgresql::server" ],
+		}
+	}
+
+	"mongodb" : {
+	}
 }
 
 # Rails installation

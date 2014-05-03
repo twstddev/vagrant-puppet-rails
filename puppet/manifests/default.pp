@@ -1,3 +1,7 @@
+# Variables
+$home = "/home/vagrant"
+$execute_as_vagrant = "sudo -u vagrant -H bash -l -c"
+
 # Set default binary paths 
 Exec {
 	path => [ "/usr/bin", "/usr/local/bin" ]

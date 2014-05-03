@@ -1,6 +1,7 @@
 # Variables
 $home = "/home/vagrant"
 $execute_as_vagrant = "sudo -u vagrant -H bash -l -c"
+# user "postgresql" or "mongodb"
 $database = "postgresql"
 
 # Set default binary paths 
@@ -58,6 +59,13 @@ case $database {
 	}
 
 	"mongodb" : {
+		class { "::mongodb::server":
+			auth => true,
+		}
+		mongodb::db { "app":
+			user => "root",
+			password => "root",
+		}
 	}
 }
 

@@ -3,6 +3,7 @@ Exec {
 	path => [ "/usr/bin", "/usr/local/bin" ]
 }
 
+
 # Prepare system before main stage
 stage { "init": }
 
@@ -15,3 +16,25 @@ class{ "update_apt" :
 }
 
 Stage[ "init" ] -> Stage[ "main" ]
+
+
+# Main packages
+package { "vim":
+	ensure => "present",
+}
+
+package { "git":
+	ensure => "present",
+}
+
+package { "curl":
+	ensure => "present",
+}
+
+package { "nodejs":
+	ensure => "present",
+}
+
+package { [ "sqlite3", "libsqlite3-dev" ]:
+	ensure => "present",
+}

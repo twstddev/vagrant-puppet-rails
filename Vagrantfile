@@ -94,6 +94,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	#   chef.json = { :mysql_password => "foo" }
 	# end
 
+	config.vm.provision "puppet" do |puppet|
+		puppet.manifests_path = "puppet/manifests"
+		puppet.module_path = "puppet/modules"
+	end
+
 	# Enable provisioning with chef server, specifying the chef server URL,
 	# and the path to the validation key (relative to this Vagrantfile).
 	#
